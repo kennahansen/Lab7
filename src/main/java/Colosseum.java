@@ -35,7 +35,7 @@ public class Colosseum {
      * Input scanner. Use this to take in user's input for buildPokemon(). <br>
      * Useful functions: next(), nextInt() .
      */
-    static Scanner myScan;
+    static Scanner myScan = new Scanner(System.in);
 
     /**
      * How we will build our Pokemon to battle.
@@ -71,6 +71,34 @@ public class Colosseum {
      *         (Look, we can return objects too!)
      *         <p>
      *         Implement this function.
+     */
+    public static Pokemon pokemonBattle() {
+        System.out.println("Please name your Pokemon: ");
+        myScan.nextLine();
+        int hitPoints = -1;
+        while ((hitPoints <= 1) || (hitPoints >= MAX_HIT_POINTS)) {
+            System.out.println("How many hit points will it have? (1-50): ");
+            hitPoints = myScan.nextInt();
+        }
+        System.out.println("Split 50 points between attack level and defense level ");
+        System.out.println("Enter your attack level (1-" + hitPoints + ") : ");
+        int attack = myScan.nextInt();
+        System.out.println("Enter your defense level (1-" + (hitPoints - attack) + "): ");
+        int defense = myScan.nextInt();
+
+        while ((attack + defense) != hitPoints) {
+            System.out.println("Sorry. The attack level must be between 1 and "
+                    + hitPoints + ": ");
+            attack = myScan.nextInt();
+            System.out.println("Sorry. The defense level must be between 1 and "
+                    + (hitPoints - attack) + "): ");
+        }
+        return buildPokemon();
+    }
+
+    /**
+     *
+     * @return a new Pokemon
      */
     public static Pokemon buildPokemon() {
         Pokemon tempPokemon = new Pokemon();
